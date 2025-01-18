@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import './Events.css';
 import ConfirmationDialog from '../../components/confirmationDialog/ConfirmationDialog';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
@@ -14,7 +13,6 @@ const Events = () => {
     title: '',
     description: '',
     date: '',
-    city: '',
     address: '',
     category: '',
     price: ''
@@ -22,26 +20,8 @@ const Events = () => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const [eventToDelete, setEventToDelete] = useState(null);
   const [searchParams, setSearchParams] = useState({
-    city: '',
     date: ''
   });
-
-  useEffect(() => {
-    fetchEvents();
-  }, [searchParams]);
-
-  const fetchEvents = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/events', {
-        params: searchParams
-      });
-      setEvents(response.data);
-      setLoading(false);
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
-    }
-  };
 
   const handleEditClick = (event) => {
     setSelectedEvent(event);
@@ -53,7 +33,6 @@ const Events = () => {
       title: '',
       description: '',
       date: '',
-      city: '',
       address: '',
       category: '',
       price: ''
@@ -72,53 +51,23 @@ const Events = () => {
     setShowConfirmDelete(true);
   };
 
-  const handleConfirmDelete = async () => {
-    try {
-      await axios.delete('http://localhost:5000/events/delete', {
-        params: { id: eventToDelete.id }
-      });
-      setEvents(events.filter(event => event.id !== eventToDelete.id));
-      setShowConfirmDelete(false);
-      setEventToDelete(null);
-    } catch (err) {
-      setError(err.message);
-      setShowConfirmDelete(false);
-      setEventToDelete(null);
-    }
+  const handleConfirmDelete = () => {
+    setEvents(events.filter(event => event.id !== eventToDelete.id));
+    setShowConfirmDelete(false);
+    setEventToDelete(null);
   };
 
-  const handleAddEvent = async (e) => {
+  const handleAddEvent = (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:5000/events/add', newEvent, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      fetchEvents();
-      handleCloseForm();
-    } catch (err) {
-      setError(err.message);
-    }
+    setEvents([...events, newEvent]);
+    handleCloseForm();
   };
 
-  const handleUpdateEvent = async (updatedEvent) => {
-    try {
-      await axios.put('http://localhost:5000/events/update', {
-        title: updatedEvent.title,
-        description: updatedEvent.description,
-        date: updatedEvent.date,
-        city: updatedEvent.city,
-        address: updatedEvent.address,
-        category: updatedEvent.category,
-        price: updatedEvent.price
-      }, {
-        headers: { 'Content-Type': 'application/json' },
-        params: { id: updatedEvent.id }
-      });
-      fetchEvents();
-      handleCloseForm();
-    } catch (err) {
-      setError(err.message);
-    }
+  const handleUpdateEvent = (updatedEvent) => {
+    setEvents(events.map(event => 
+      event.id === updatedEvent.id ? updatedEvent : event
+    ));
+    handleCloseForm();
   };
 
   const handleSearchChange = (e) => {
@@ -137,15 +86,6 @@ const Events = () => {
       <div className='search-form'>
         <h2>Search Events</h2>
         <form>
-          <label>
-            City:
-            <input
-              type="text"
-              name="city"
-              value={searchParams.city}
-              onChange={handleSearchChange}
-            />
-          </label>
           <label>
             Date:
             <input
@@ -167,7 +107,7 @@ const Events = () => {
               <h2>{event.title}</h2>
               <p>{event.description}</p>
               <p><strong>Date:</strong> {event.date}</p>
-              <p><strong>Location:</strong> {event.city}, {event.address}</p>
+              <p><strong>Location:</strong> {event.address}</p>
               <p><strong>Category:</strong> {event.category}</p>
               <p><strong>Price:</strong> ${event.price.toFixed(2)}</p>
               <button className='edit-button' onClick={() => handleEditClick(event)}>Edit</button>
@@ -222,13 +162,9 @@ const EditEventForm = ({ event, onClose, onUpdate }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await onUpdate(formData);
-    } catch (err) {
-      console.error('Update failed:', err);
-    }
+    onUpdate(formData);
   };
 
   return (
@@ -258,15 +194,6 @@ const EditEventForm = ({ event, onClose, onUpdate }) => {
             type="date"
             name="date"
             value={formData.date}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          City:
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
             onChange={handleChange}
           />
         </label>
@@ -333,15 +260,6 @@ const AddEventForm = ({ event, onChange, onClose, onSubmit }) => {
             type="date"
             name="date"
             value={event.date}
-            onChange={onChange}
-          />
-        </label>
-        <label>
-          City:
-          <input
-            type="text"
-            name="city"
-            value={event.city}
             onChange={onChange}
           />
         </label>
