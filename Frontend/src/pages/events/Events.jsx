@@ -1,6 +1,93 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
 import ConfirmationDialog from '../../components/confirmationDialog/ConfirmationDialog';
+// Key Features of the Code
+// API Integration: Integrated all CRUD operations (GET, POST, PUT, DELETE) with your Flask backend.
+//Component Structure: Includes AddEventForm and EditEventForm within the same file to resolve undefined errors.
+// State Management: Manages events using useState and fetches data via useEffect
+// The AddEventForm component
+const AddEventForm = ({ event, onChange, onClose, onSubmit }) => (
+  <div className='edit-event-form'>
+    <h2>Add Event</h2>
+    <form onSubmit={onSubmit}>
+      <label>
+        Title:
+        <input type="text" name="title" value={event.title} onChange={onChange} />
+      </label>
+      <label>
+        Description:
+        <textarea name="description" value={event.description} onChange={onChange} />
+      </label>
+      <label>
+        Date:
+        <input type="date" name="date" value={event.date} onChange={onChange} />
+      </label>
+      <label>
+        Address:
+        <input type="text" name="address" value={event.address} onChange={onChange} />
+      </label>
+      <label>
+        Category:
+        <input type="text" name="category" value={event.category} onChange={onChange} />
+      </label>
+      <label>
+        Price:
+        <input type="number" name="price" value={event.price} onChange={onChange} step="0.01" />
+      </label>
+      <button type="submit">Add Event</button>
+      <button type="button" onClick={onClose}>Cancel</button>
+    </form>
+  </div>
+);
+
+// The EditEventForm component
+const EditEventForm = ({ event, onClose, onUpdate }) => {
+  const [formData, setFormData] = useState({ ...event });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onUpdate(formData);
+  };
+
+  return (
+    <div className='edit-event-form'>
+      <h2>Edit Event</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Title:
+          <input type="text" name="title" value={formData.title} onChange={handleChange} />
+        </label>
+        <label>
+          Description:
+          <textarea name="description" value={formData.description} onChange={handleChange} />
+        </label>
+        <label>
+          Date:
+          <input type="date" name="date" value={formData.date} onChange={handleChange} />
+        </label>
+        <label>
+          Address:
+          <input type="text" name="address" value={formData.address} onChange={handleChange} />
+        </label>
+        <label>
+          Category:
+          <input type="text" name="category" value={formData.category} onChange={handleChange} />
+        </label>
+        <label>
+          Price:
+          <input type="number" name="price" value={formData.price} onChange={handleChange} step="0.01" />
+        </label>
+        <button type="submit">Save Changes</button>
+        <button type="button" onClick={onClose}>Cancel</button>
+      </form>
+    </div>
+  );
+};
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -22,6 +109,7 @@ const Events = () => {
 
   const API_URL = 'http://127.0.0.1:5000/events';
 
+  // Fetch events from the backend
   useEffect(() => {
     const fetchEvents = async () => {
       setLoading(true);
@@ -46,9 +134,11 @@ const Events = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newEvent),
       });
-      const addedEvent = await response.json();
-      setEvents([...events, addedEvent]);
-      handleCloseForm();
+      if (response.ok) {
+        const addedEvent = await response.json();
+        setEvents([...events, addedEvent]);
+        handleCloseForm();
+      }
     } catch (error) {
       console.error('Error adding event:', error);
     }
@@ -119,11 +209,24 @@ const Events = () => {
       )}
 
       {isEditing && selectedEvent && (
-        <EditEventForm event={selectedEvent} onClose={handleCloseForm} onUpdate={handleUpdateEvent} />
+        <div className='modal'>
+          <EditEventForm
+            event={selectedEvent}
+            onClose={handleCloseForm}
+            onUpdate={handleUpdateEvent}
+          />
+        </div>
       )}
 
       {isAdding && (
-        <AddEventForm event={newEvent} onChange={(e) => setNewEvent({ ...newEvent, [e.target.name]: e.target.value })} onClose={handleCloseForm} onSubmit={handleAddEvent} />
+        <div className='modal'>
+          <AddEventForm
+            event={newEvent}
+            onChange={(e) => setNewEvent({ ...newEvent, [e.target.name]: e.target.value })}
+            onClose={handleCloseForm}
+            onSubmit={handleAddEvent}
+          />
+        </div>
       )}
 
       {showConfirmDelete && (
@@ -136,40 +239,5 @@ const Events = () => {
     </div>
   );
 };
-
-const EditEventForm = ({ event, onClose, onUpdate }) => {
-  const [formData, setFormData] = useState({ ...event });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  return (
-    <form onSubmit={(e) => { e.preventDefault(); onUpdate(formData); }}>
-      <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Title" />
-      <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
-      <input type="date" name="date" value={formData.date} onChange={handleChange} />
-      <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Address" />
-      <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="Category" />
-      <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price" />
-      <button type="submit">Save Changes</button>
-      <button type="button" onClick={onClose}>Cancel</button>
-    </form>
-  );
-};
-
-const AddEventForm = ({ event, onChange, onClose, onSubmit }) => (
-  <form onSubmit={onSubmit}>
-    <input type="text" name="title" value={event.title} onChange={onChange} placeholder="Title" />
-    <textarea name="description" value={event.description} onChange={onChange} placeholder="Description" />
-    <input type="date" name="date" value={event.date} onChange={onChange} />
-    <input type="text" name="address" value={event.address} onChange={onChange} placeholder="Address" />
-    <input type="text" name="category" value={event.category} onChange={onChange} placeholder="Category" />
-    <input type="number" name="price" value={event.price} onChange={onChange} placeholder="Price" />
-    <button type="submit">Add Event</button>
-    <button type="button" onClick={onClose}>Cancel</button>
-  </form>
-);
 
 export default Events;
