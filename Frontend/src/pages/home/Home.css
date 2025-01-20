@@ -1,6 +1,6 @@
 .homepage {
   position: relative;
-  background-image: url('C:\Users\Frada\Desktop\Events App\Frontend\public\back.jpg'); /* Correct path */
+  background-image: url('/public/back.jpg');
   background-size: cover;
   background-position: center;
   height: 100vh;
