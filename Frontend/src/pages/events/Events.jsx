@@ -128,16 +128,22 @@ const Events = () => {
 
   const handleAddEvent = async (e) => {
     e.preventDefault();
+    console.log(newEvent); // Debugging the event data being sent
+
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newEvent),
       });
+
       if (response.ok) {
         const addedEvent = await response.json();
         setEvents([...events, addedEvent]);
         handleCloseForm();
+      } else {
+        const error = await response.json();
+        console.error('Error:', error);
       }
     } catch (error) {
       console.error('Error adding event:', error);
