@@ -1,0 +1,114 @@
+# **Spécifications de Eventify IMSET Sousse**
+
+## **Description du projet**
+**Eventify IMSET Sousse** est une application web dynamique conçue pour aider la communauté de l'IMSET à rester informée des derniers événements se déroulant à Sousse et ses environs, en Tunisie.  
+Que vous soyez à la recherche d'activités culturelles, d'événements universitaires ou d'animations locales, **Eventify** est votre plateforme idéale.
+
+---
+
+## **Objectifs**
+- Fournir une plateforme conviviale pour afficher et gérer des événements.
+- Permettre à la communauté IMSET de rester informée des dernières activités dans et autour de Sousse.
+- Offrir une expérience utilisateur fluide et efficace sur tous les appareils.
+
+---
+
+## **Équipe de développement**
+- **Mohamed Amine FRAD**  
+- **Sarra Zaag**  
+
+---
+
+## **Besoins fonctionnels**
+
+### **1. Gestion des événements**
+- **Ajouter des événements** :  
+  Permettre à l'utilisateur de créer un événement en renseignant :  
+  - Titre  
+  - Description  
+  - Date et heure  
+  - Lieu  
+  - Catégorie (facultatif)
+
+- **Afficher les événements** :  
+  - Lister tous les événements disponibles.  
+  - Trier et filtrer les événements par catégorie, date ou popularité.
+
+- **Modifier ou supprimer un événement** :  
+  - Modifier les informations d’un événement existant.  
+  - Supprimer un événement obsolète ou annulé.
+
+---
+
+### **2. Authentification**
+- **Connexion simple** :  
+  - Permettre à l'utilisateur de se connecter pour gérer les événements.  
+  - Stocker les informations de connexion en toute sécurité.  
+
+---
+
+### **3. Notifications (optionnel)**
+- Envoyer des rappels ou des notifications pour les événements à venir.  
+
+---
+
+## **Besoins non fonctionnels**
+
+### **1. UI/UX**
+- Interface utilisateur simple et intuitive.
+- Design responsive adapté aux mobiles, tablettes et ordinateurs.
+- Utilisation d'une charte graphique harmonieuse et agréable.
+
+### **2. Performance**
+- Temps de chargement rapide pour afficher les événements.
+- Optimisation de la base de données pour un accès rapide aux données.
+
+### **3. Sécurité**
+- Protection des données utilisateur (ex. hachage des mots de passe).  
+- Sécurisation des données stockées sur le serveur.
+
+### **4. Scalabilité**
+- Conception extensible pour ajouter des fonctionnalités futures, comme un système de commentaires ou un calendrier intégré.
+
+---
+
+## **Spécifications techniques**
+
+### **Backend**
+- **Framework** : Python Flask  
+- **Architecture** : API RESTful  
+- **Base de données** : PostgreSQL  
+
+### **Frontend**
+- **Framework** : React.js  
+- **Style** : CSS/TailwindCSS pour un design moderne.  
+
+### **Infrastructure**
+- Hébergement sur un serveur Windows avec les spécifications suivantes :  
+  - **Python** : Version 3.12  
+  - **Node.js** : Version 22 LTS  
+  - **PostgreSQL** : Version 16  
+
+---
+
+## **Diagrammes**
+
+### **1. Diagramme des cas d'utilisation**
+- Ajouter un événement.  
+- Afficher la liste des événements.  
+- Modifier/Supprimer un événement.  
+
+### **2. Diagramme d'activité**
+1. L'utilisateur se connecte.  
+2. Il accède à la liste des événements.  
+3. Il ajoute/modifie/supprime un événement.  
+
+### **3. Diagramme de séquence**
+1. L'utilisateur soumet une requête pour ajouter un événement.  
+2. Le backend traite la requête et met à jour la base de données.  
+3. Le frontend affiche les événements mis à jour.  
+
+---
+
+## **Conclusion**
+**Eventify IMSET Sousse** vise à centraliser les informations sur les événements pour simplifier l'accès à ces derniers et favoriser l'engagement de la communauté IMSET avec les activités locales. Avec son interface intuitive et ses fonctionnalités pratiques, Eventify est la solution idéale pour ne rien manquer des opportunités à Sousse.
