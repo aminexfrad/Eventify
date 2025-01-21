@@ -117,7 +117,7 @@ L'absence de rôles ou de permissions peut entraîner une mauvaise gestion des �
 - Ajouter un événement.  
 - Afficher la liste des événements.  
 - Modifier/Supprimer un événement.  
- <img align="center" src="./Docs/Diagrammes/Diagramme des cas d'utilisation.png" width="100%">  
+ <img align="center" src="Docs/Diagrammes/Diagramme d'activité.png" width="100%">  
 
 ### **2. Diagramme d'activité**  
 1. L'utilisateur accède à la liste des événements.  
