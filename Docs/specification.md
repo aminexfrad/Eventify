@@ -110,24 +110,18 @@ L'absence de rôles ou de permissions peut entraîner une mauvaise gestion des �
 ### **Frontend**  
 - **Framework** : React  
 
+---
 
 ## **Diagrammes**
 
 ### **1. Diagramme des cas d'utilisation**  
-- Ajouter un événement.  
-- Afficher la liste des événements.  
-- Modifier/Supprimer un événement.  
- <img align="center" src="Docs/Diagrammes/Diagramme d'activité.png" width="100%">  
+![Diagramme des cas d'utilisation](Diagramme_des_cas_d_utilisation.png)
 
 ### **2. Diagramme d'activité**  
-1. L'utilisateur accède à la liste des événements.  
-2. Il ajoute/modifie/supprime un événement.  
-![Diagramme d'activité](Docs/Diagrammes/Diagramme%20d'activité.png)
+![Diagramme d'activité](Diagramme_d_activite.png)
+
 ### **3. Diagramme de séquence**  
-1. L'utilisateur soumet une requête pour ajouter un événement.  
-2. Le backend traite la requête et met à jour la base de données.  
-3. Le frontend affiche les événements mis à jour.  
-![Diagramme de séquence](Docs/Diagrammes/Diagramme%20de%20séquence.png)
+![Diagramme de séquence](Diagramme_de_sequence.png)
 
 ---
 
