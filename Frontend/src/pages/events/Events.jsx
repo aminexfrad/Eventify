@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
+import ConfirmationDialog from '../../components/confirmationDialog/ConfirmationDialog';
 // Key Features of the Code
 // API Integration: Integrated all CRUD operations (GET, POST, PUT, DELETE) with your Flask backend.
 //Component Structure: Includes AddEventForm and EditEventForm within the same file to resolve undefined errors.
