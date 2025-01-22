@@ -1,7 +1,6 @@
 from flask import jsonify, request
-from . import db  
+from . import db
 from .models import Event
-
 
 def init_routes(app):
     @app.route('/events', methods=['GET'])
@@ -28,6 +27,7 @@ def init_routes(app):
     @app.route('/events/add', methods=['POST'])
     def add_event():
         data = request.get_json()
+        print("Received data:", data)  # Debug: Log the received data
         new_event = Event(
             title=data['title'],
             description=data['description'],

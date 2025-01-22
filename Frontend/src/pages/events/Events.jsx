@@ -89,13 +89,16 @@ const Events = () => {
 
   const handleAddEvent = async (e) => {
     e.preventDefault();
+    console.log('Adding event:', newEvent); // Debug: Log the new event data
     try {
-      await axios.post('http://localhost:5000/events/add', newEvent, {
+      const response = await axios.post('http://localhost:5000/events/add', newEvent, {
         headers: { 'Content-Type': 'application/json' }
       });
-      fetchEvents();
-      handleCloseForm();
+      console.log('Event added:', response.data); // Debug: Log the response
+      fetchEvents(); // Refresh the event list
+      handleCloseForm(); // Close the form
     } catch (err) {
+      console.error('Error adding event:', err); // Debug: Log the error
       setError(err.message);
     }
   };
@@ -103,6 +106,7 @@ const Events = () => {
   const handleUpdateEvent = async (updatedEvent) => {
     try {
       await axios.put('http://localhost:5000/events/update', {
+        id: updatedEvent.id,
         title: updatedEvent.title,
         description: updatedEvent.description,
         date: updatedEvent.date,
@@ -111,8 +115,7 @@ const Events = () => {
         category: updatedEvent.category,
         price: updatedEvent.price
       }, {
-        headers: { 'Content-Type': 'application/json' },
-        params: { id: updatedEvent.id }
+        headers: { 'Content-Type': 'application/json' }
       });
       fetchEvents();
       handleCloseForm();
@@ -169,7 +172,7 @@ const Events = () => {
               <p><strong>Date:</strong> {event.date}</p>
               <p><strong>Location:</strong> {event.city}, {event.address}</p>
               <p><strong>Category:</strong> {event.category}</p>
-              <p><strong>Price:</strong> ${event.price.toFixed(2)}</p>
+              <p><strong>Price:</strong> DT{event.price.toFixed(2)}</p>
               <button className='edit-button' onClick={() => handleEditClick(event)}>Edit</button>
               <button className='delete-button' onClick={() => handleDeleteClick(event)}>Delete</button>
             </li>
