@@ -105,7 +105,7 @@ L'absence de rôles ou de permissions peut entraîner une mauvaise gestion des �
 ### **Backend**  
 - **Framework** : Python Flask  
 - **Architecture** : API RESTful  
-- **Base de données** : PostgreSQL  
+- **Base de données** : sql xamp  
 
 ### **Frontend**  
 - **Framework** : React  
