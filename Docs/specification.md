@@ -75,15 +75,9 @@ Avec une augmentation constante du nombre d'événements, le système peut renco
 
 ---
 
-### **Problématique 2 : Notifications pertinentes pour les utilisateurs**  
-Les notifications excessives ou mal ciblées peuvent perturber les utilisateurs et réduire leur engagement.  
-
-**Solution :**  
-- Permettre aux utilisateurs de personnaliser leurs préférences de notification.   
-
 ---
 
-### **Problématique 3 : Accessibilité multiplateforme**  
+### **Problématique 2 : Accessibilité multiplateforme**  
 L'application doit être accessible et fonctionnelle sur différents types d'appareils (ordinateurs, tablettes, smartphones).  
 
 **Solution :**  
@@ -104,7 +98,7 @@ L'absence de rôles ou de permissions peut entraîner une mauvaise gestion des �
 
 ### **Backend**  
 - **Framework** : Python Flask  
-- **Architecture** : API RESTful  
+- **Architecture** : API   
 - **Base de données** : sql xamp  
 
 ### **Frontend**  
