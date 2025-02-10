@@ -18,7 +18,7 @@ The app offers an interactive platform for discovering and exploring exciting ev
 - **CSS**: For styling the components and layout
 - **Libraries**: 
   - React Icons 
-  - React Router (if used for routing)
+  - React Router 
   - Any additional libraries for event management and weather APIs
 
 ## Getting Started
