@@ -14,10 +14,10 @@ The app offers an interactive platform for discovering and exploring exciting ev
 ## Technologies Used
 
 - **Frontend**: React
-- **Backend**: Flask (if backend is included)
+- **Backend**: Flask 
 - **CSS**: For styling the components and layout
 - **Libraries**: 
-  - React Icons (`react-icons`)
+  - React Icons 
   - React Router (if used for routing)
   - Any additional libraries for event management and weather APIs
 
